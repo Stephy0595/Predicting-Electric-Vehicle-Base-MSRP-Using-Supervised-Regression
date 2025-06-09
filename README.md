@@ -1,106 +1,145 @@
 # Predicting Electric Vehicle Base MSRP Using Supervised Regression
 
+##  Project Overview
 
-## **Project Overview**
 The transportation sector is rapidly evolving with the growing adoption of Electric Vehicles (EVs). Accurate prediction of EV prices helps manufacturers optimize pricing strategies, policymakers design incentives, and consumers make informed choices.
 
 This project develops supervised regression models to predict the Base MSRP (Manufacturer’s Suggested Retail Price) of electric vehicles based on their features such as battery capacity, range, model year, and other specifications.
 
-## **Dataset**
-Source: U.S. Government Open Data (https://catalog.data.gov/dataset/electric-vehicle-population-data)
+-  Helping **manufacturers** optimize pricing strategies  
+-  Enabling **policymakers** to design effective incentive programs  
+-  Assisting **consumers** in making informed purchase decisions
 
-Description: The dataset contains EV models along with their specifications and corresponding Base MSRP values.
+This project builds supervised regression models to predict the **Base MSRP** (Manufacturer’s Suggested Retail Price) of EVs based on specifications like battery capacity, range, model year, and more.
 
-## **Key Features** :
+---
 
-Battery Capacity
+##  Dataset
 
-Range
+- **Source:** [U.S. Government Open Data](https://catalog.data.gov/dataset/electric-vehicle-population-data)  
+- **Description:** Contains detailed records on electric vehicles registered in the U.S.  
+- **Records:** 223,995 rows and 17 columns
+  
+##  **Key Features:**
+  - Battery Capacity (kWh)
+  - All-Electric Range (miles)
+  - Vehicle Model Year
+  - Vehicle Type
+  - Base MSRP (target variable)
+  - Technical and categorical specs
 
-Model Year
+---
 
-Vehicle Type
+##  Problem Statement
 
-Other technical specs
+> **Goal:** Predict the Base MSRP of electric vehicles using supervised learning techniques to improve pricing strategy, policy planning, and consumer decision-making.
 
-## **Problem Statement**
-Predict the Base MSRP of electric vehicles using regression models, enabling insights into factors affecting pricing and improving price estimation accuracy.
+---
 
-## **Methodology**
+##  Methodology
 
-#### ➤ Data Preprocessing
+###  Data Preprocessing
 
-Handling missing values
+- **Missing Values:**
+  - Numerical: Imputed with mean  
+  - Categorical: Imputed with mode  
+- **Encoding:** Used `LabelEncoder` for categorical features  
+- **Outlier Removal:** Applied IQR method  
+- **Skewness Handling:** Used transformations to reduce skew  
+- **Scaling:** Normalized numerical features using `StandardScaler`  
+- **Feature Selection:** Chose relevant columns for accurate prediction
 
-Encoding categorical variables
+---
 
-Feature selection
+###  Model Implementation
 
-Feature Scaling
+The following regression models were implemented and evaluated:
 
-StandardScaler to normalize numerical features
+| Model                      | Algorithm Used             |
+|---------------------------|----------------------------|
+| Linear Regression         | `LinearRegression()`       |
+| Decision Tree Regressor   | `DecisionTreeRegressor()`  |
+| Random Forest Regressor   | `RandomForestRegressor()`  |
+| Gradient Boosting Regressor | `GradientBoostingRegressor()` |
+| Support Vector Regressor  | `SVR()`                    |
+| MLP Regressor             | `MLPRegressor()`           |
 
-#### ➤ Model Implementation
-Trained and evaluated multiple regression algorithms:
+---
 
-Linear Regression
+###  Model Evaluation
 
-Decision Tree Regressor
+Used the following metrics to compare models:
 
-Random Forest Regressor
+- R² Score  
+- Mean Squared Error (MSE)  
+- Mean Absolute Error (MAE)  
+- Root Mean Squared Error (RMSE)
 
-Gradient Boosting Regressor
+ **Best Model:** `Random Forest Regressor`
 
-Support Vector Regressor
+---
 
-#### ➤ Model Evaluation
-Used performance metrics including:
+###  Hyperparameter Tuning
 
-R² Score
+- **Method:** `GridSearchCV`  
+- **Goal:** Optimize hyperparameters of Random Forest for improved performance  
+- **Result:** Increased model accuracy with tuned parameters
 
-Mean Squared Error (MSE)
+---
 
-Mean Absolute Error (MAE)
+###  Pipeline Creation
 
-Root Mean Squared Error (RMSE)
+To ensure efficiency and reproducibility, a pipeline was created including:
 
-#### ➤ Hyperparameter Tuning
+1. Data Preprocessing  
+2. Feature Scaling  
+3. Model Training (Random Forest Regressor)
 
-Performed Grid Search to optimize model parameters, improving prediction accuracy.
+---
 
-## **Conclusion**
+###  Model Saving
 
-After extensive preprocessing, model training, and tuning:
+- The final trained model was saved using `Pickle`/`Joblib` for future inference or deployment.
 
--  **Random Forest Regressor** delivered the best performance  
--  Demonstrated high accuracy in predicting EV prices  
--  Emphasized the importance of feature engineering and tuning  
+---
 
-Despite challenges like **zero-inflation in the target variable** and **high computational costs**, the model achieved reliable results and forms a strong foundation for future improvements.
+##  Conclusion
 
+- Random Forest Regressor provided the best accuracy among all models.  
+- Proper data cleaning, feature engineering, and hyperparameter tuning were essential.  
+- The model can assist manufacturers, policymakers, and consumers with pricing predictions.
 
+---
 
-## Limitations
-- Large dataset posed memory and processing constraints  
-- Target variable had zero-inflation and skewness  
-- Model requires high compute power, limiting real-time use  
-- May miss complex interactions due to limited model complexity  
+##  Limitations
 
-## Future Scope and Impact
+- Large dataset required significant memory and processing time  
+- Target variable (Base MSRP) had skewness and zero-inflation  
+- High computational cost limits real-time usage  
+- Potential underfitting of complex feature interactions
+
+---
+
+##  Future Scope & Real-World Impact
+
 ###  Practical Applications
 
-- **Manufacturers**: Use model insights to strategize competitive EV pricing  
-- **Policymakers**: Assess the impact of incentives on EV adoption  
-- **Consumers**: Get price estimates aligned with features and budget  
-- **Climate Impact**: Support sustainable and green transportation planning  
+- **Manufacturers:** Price optimization based on feature patterns  
+- **Policymakers:** Assess incentive effectiveness on EV adoption  
+- **Consumers:** Get price estimates based on specs  
+- **Climate Strategy:** Support green and sustainable planning
 
 ###  Potential Enhancements
 
-- SHAP, LIME for **Model Explainability**  
-- **Ensemble Learning**: Boosting, Bagging, Stacking  
-- **Transfer Learning** using deep models  
-- **Geospatial & Time-Series Analysis**  
-- **Causal Inference** to understand deeper patterns  
-- **Domain Adaptation** for other markets/regions  
-- **Uncertainty Quantification** to assess model confidence  
-- **Real-Time Deployment** via Flask/Streamlit APIs 
+- Model Explainability using **SHAP** or **LIME**  
+- Ensemble learning: Boosting, Bagging, and Stacking  
+- **Transfer Learning** and deep neural models  
+- **Geospatial & Time-Series** feature integration  
+- **Causal Inference** for deeper pricing logic  
+- Real-time deployment using **Flask** or **Streamlit** APIs  
+- **Uncertainty Quantification** for prediction confidence
+
+---
+
+
+

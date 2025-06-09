@@ -1,59 +1,53 @@
 # Predicting Electric Vehicle Base MSRP Using Supervised Regression
 
-##  Project Overview
+##  Problem Statement  
+The goal of this project is to develop a **regression model** that accurately predicts the **Base MSRP (Manufacturer’s Suggested Retail Price)** of electric vehicles (EVs) using their specifications.
 
-The transportation sector is rapidly evolving with the growing adoption of Electric Vehicles (EVs). Accurate prediction of EV prices helps manufacturers optimize pricing strategies, policymakers design incentives, and consumers make informed choices.
-
-This project develops supervised regression models to predict the Base MSRP (Manufacturer’s Suggested Retail Price) of electric vehicles based on their features such as battery capacity, range, model year, and other specifications.
-
--  Helping **manufacturers** optimize pricing strategies  
--  Enabling **policymakers** to design effective incentive programs  
--  Assisting **consumers** in making informed purchase decisions
-
-This project builds supervised regression models to predict the **Base MSRP** (Manufacturer’s Suggested Retail Price) of EVs based on specifications like battery capacity, range, model year, and more.
+Understanding how factors like **battery capacity**, **range**, and **model year** affect EV pricing is crucial for:  
+- **Manufacturers** to optimize pricing strategies  
+- **Policymakers** to evaluate incentive programs  
+- **Consumers** to make informed purchase decisions
 
 ---
 
-##  Dataset
+##  Dataset Overview  
+- **Source**: [Electric Vehicle Population Data – Data.gov](https://catalog.data.gov/dataset/electric-vehicle-population-data)  
+- **Type**: Public government dataset  
+- **Format**: CSV  
+- **Size**: 223,995 rows × 17 columns  
 
-- **Source:** [U.S. Government Open Data](https://catalog.data.gov/dataset/electric-vehicle-population-data)  
-- **Description:** Contains detailed records on electric vehicles registered in the U.S.  
-- **Records:** 223,995 rows and 17 columns
-  
-##  **Key Features:**
-  - Battery Capacity (kWh)
-  - All-Electric Range (miles)
-  - Vehicle Model Year
-  - Vehicle Type
-  - Base MSRP (target variable)
-  - Technical and categorical specs
+###  Key Features  
+- `Battery Capacity (kWh)`  
+- `All-Electric Range (miles)`  
+- `Model Year`  
+- `Vehicle Type`  
+- `Base MSRP (Target)`  
+- Additional categorical and technical specs  
 
 ---
 
-##  Problem Statement
-
-> **Goal:** Predict the Base MSRP of electric vehicles using supervised learning techniques to improve pricing strategy, policy planning, and consumer decision-making.
+##  Project Type  
+- **Learning Type**: Supervised Learning  
+- **Modeling Task**: Regression  
+- **Target Variable**: `Base MSRP`
 
 ---
 
 ##  Methodology
 
-###  Data Preprocessing
-
-- **Missing Values:**
-  - Numerical: Imputed with mean  
-  - Categorical: Imputed with mode   
-- **Outlier Removal:** Applied IQR method  
-- **Skewness Handling:** Used transformations to reduce skew  
-- **Scaling:** Normalized numerical features using `StandardScaler`  
-- **Feature Selection:** Chose relevant columns for accurate prediction
+### 1. Data Preprocessing  
+- **Missing Values**  
+  - Numerical: Imputed with **mean**  
+  - Categorical: Imputed with **mode**  
+- **Outlier Detection**: Removed using **IQR method**  
+- **Skewness Handling**: Addressed using transformation methods  
+- **Encoding**: Used `LabelEncoder` for categorical variables  
+- **Feature Scaling**: Standardized using `StandardScaler`  
+- **Feature Selection**: Selected relevant features based on correlation and domain relevance
 
 ---
 
-###  Model Implementation
-
-The following regression models were implemented and evaluated:
-
+### 2. Model Implementation  
 | Model                      | Algorithm Used             |
 |---------------------------|----------------------------|
 | Linear Regression         | `LinearRegression()`       |
@@ -65,80 +59,76 @@ The following regression models were implemented and evaluated:
 
 ---
 
-###  Model Evaluation
+### 3. Model Evaluation Metrics  
+- **R² Score**  
+- **Mean Squared Error (MSE)**  
+- **Mean Absolute Error (MAE)**  
+- **Root Mean Squared Error (RMSE)**  
 
-Used the following metrics to compare models:
-
-- R² Score  
-- Mean Squared Error (MSE)  
-- Mean Absolute Error (MAE)  
-- Root Mean Squared Error (RMSE)
-
- **Best Model:** `Random Forest Regressor`
+###  Best Model: Random Forest Regressor 
 
 ---
 
-###  Hyperparameter Tuning
-
-- **Method:** `GridSearchCV`  
-- **Goal:** Optimize hyperparameters of Random Forest for improved performance  
-- **Result:** Increased model accuracy with tuned parameters
+### 4. Hyperparameter Tuning  
+- **Technique**: `GridSearchCV`  
+- **Objective**: Improve performance by tuning `n_estimators`, `max_depth`, and other parameters  
+- **Result**: Enhanced accuracy and generalization
 
 ---
 
-###  Pipeline Creation
-
-To ensure efficiency and reproducibility, a pipeline was created including:
-
-1. Data Preprocessing  
+### 5. Pipeline Creation  
+To ensure automation and scalability, a pipeline was created:  
+1. Preprocessing  
 2. Feature Scaling  
-3. Model Training (Random Forest Regressor)
+3. Model Training  
+4. Evaluation
 
 ---
 
-###  Model Saving
-
-- The final trained model was saved using `Pickle`/`Joblib` for future inference or deployment.
-
----
-
-##  Conclusion
-
-- Random Forest Regressor provided the best accuracy among all models.  
-- Proper data cleaning, feature engineering, and hyperparameter tuning were essential.  
-- The model can assist manufacturers, policymakers, and consumers with pricing predictions.
+###  Model Saving  
+- Trained model saved using `Pickle` or `Joblib`  
+- Enables **future deployment or inference**
 
 ---
 
-##  Limitations
-
-- Large dataset required significant memory and processing time  
-- Target variable (Base MSRP) had skewness and zero-inflation  
-- High computational cost limits real-time usage  
-- Potential underfitting of complex feature interactions
+##  Key Insights  
+- Tree-based ensemble methods outperform others for this dataset  
+- Feature engineering and preprocessing critically impact performance  
+- High `R²` value indicates strong explanatory power
 
 ---
 
-##  Future Scope & Real-World Impact
-
-###  Practical Applications
-
-- **Manufacturers:** Price optimization based on feature patterns  
-- **Policymakers:** Assess incentive effectiveness on EV adoption  
-- **Consumers:** Get price estimates based on specs  
-- **Climate Strategy:** Support green and sustainable planning
-
-###  Potential Enhancements
-
-- Model Explainability using **SHAP** or **LIME**  
-- Ensemble learning: Boosting, Bagging, and Stacking  
-- **Transfer Learning** and deep neural models  
-- **Geospatial & Time-Series** feature integration  
-- **Causal Inference** for deeper pricing logic  
-- Real-time deployment using **Flask** or **Streamlit** APIs  
-- **Uncertainty Quantification** for prediction confidence
+##  Visual Evaluation  
+- **Residual Plots**: Checked for randomness of errors  
+- **Actual vs Predicted**: Confirmed tight fit  
+- **Feature Importance**: Identified influential features like battery capacity and range
 
 ---
+
+##  Limitations  
+- **High memory usage** for full dataset  
+- **Skewed target variable** with zero-inflation  
+- **Long training time** for large models like Random Forest & MLP  
+- Limited handling of **feature interactions** in simpler models
+
+---
+
+##  Future Scope & Real-World Impact  
+
+###  Applications  
+- **Manufacturers**: Use model insights for price optimization  
+- **Policymakers**: Evaluate EV incentive program effectiveness  
+- **Consumers**: Get realistic price expectations  
+- **Sustainability**: Supports EV adoption & climate action goals  
+
+###  Potential Enhancements  
+-  **Model Explainability**: SHAP, LIME  
+-  **Ensemble Learning**: Boosting, Bagging, Stacking  
+-  **Transfer Learning** & DNNs  
+-  **Geospatial & Time-Series** features  
+-  **Real-time Deployment**: Flask, Streamlit  
+-  **Uncertainty Quantification**
+
 
 
 

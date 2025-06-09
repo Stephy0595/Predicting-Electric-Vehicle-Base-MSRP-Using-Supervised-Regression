@@ -42,8 +42,7 @@ This project builds supervised regression models to predict the **Base MSRP** (M
 
 - **Missing Values:**
   - Numerical: Imputed with mean  
-  - Categorical: Imputed with mode  
-- **Encoding:** Used `LabelEncoder` for categorical features  
+  - Categorical: Imputed with mode   
 - **Outlier Removal:** Applied IQR method  
 - **Skewness Handling:** Used transformations to reduce skew  
 - **Scaling:** Normalized numerical features using `StandardScaler`  
